@@ -36,10 +36,18 @@ class Events
      */
     public static function onConnect($client_id)
     {
-        // 向当前client_id发送数据 
-        Gateway::sendToClient($client_id, "Hello $client_id\r\n");
-        // 向所有人发送
-        Gateway::sendToAll("$client_id login\r\n");
+        /**
+          // 向当前client_id发送数据
+          Gateway::sendToClient($client_id, "Hello $client_id\r\n");
+          // 向所有人发送
+          Gateway::sendToAll("$client_id login\r\n");
+        */
+       
+        // 当有客户端连接时，将client_id返回，让mvc框架判断当前uid并执行绑定
+        Gateway::sendToClient($client_id, json_encode(array(
+            'type'      => 'init',
+            'client_id' => $client_id
+        )));
     }
     
    /**
@@ -49,8 +57,11 @@ class Events
     */
    public static function onMessage($client_id, $message)
    {
-        // 向所有人发送 
-        Gateway::sendToAll("$client_id said $message\r\n");
+        /**
+          // 向所有人发送 
+          Gateway::sendToAll("$client_id said $message\r\n");
+        */
+       // GatewayWorker建议不做任何业务逻辑，onMessage留空即可
    }
    
    /**
@@ -60,6 +71,10 @@ class Events
    public static function onClose($client_id)
    {
        // 向所有人发送 
-       GateWay::sendToAll("$client_id logout\r\n");
+       // GateWay::sendToAll("$client_id logout\r\n");
+      Gateway::sendToAll(json_encode([
+        'type' => 'logout',
+        'client_id' => $client_id
+      ]));
    }
 }
