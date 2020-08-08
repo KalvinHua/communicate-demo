@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'communicate-demo'),
+    'name' => env('APP_NAME', 'communicate'),
 
     /*
     |--------------------------------------------------------------------------

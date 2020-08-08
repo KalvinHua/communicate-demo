@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <a href="?room_id=1" class="btn btn-danger">吃货人生</a>
-        <a href="?room_id=2" class="btn btn-primary">技术探讨</a>
+        <a href="?room_id=1" class="btn btn-danger">房间1</a>
+        <a href="?room_id=2" class="btn btn-primary">房间2</a>
         <hr class="divider">
 
         <div class="row">
@@ -154,6 +154,9 @@
     .card-body {
         height: 480px;
         overflow: auto;
+    }
+    .card-header{
+        background-color: #fff!important;
     }
     .media-object.img-circle {
         width: 64px;
