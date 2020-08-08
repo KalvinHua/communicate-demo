@@ -47,12 +47,12 @@
 
         <form @submit.prevent="onSubmit">
             <div class="form-group">
-                <label for="user_id">私聊</label>
+                <label for="to_user_id">私聊</label>
 
-                <select class="form-control" id="user_id" v-model="user_id">
+                <select class="form-control" id="to_user_id" v-model="to_user_id">
                     <option value="">所有人</option>
-                    <option :value="user.id" v-for="user in users">
-                        {{user.name}}
+                    <option :value="touser.id" v-for="touser in to_users" v-if>
+                        {{touser.name}}
                     </option>
                 </select>
             </div>
@@ -76,8 +76,8 @@
                 messages: [],
                 content: '',
                 users: [],
-                user_id: '',
-                //chat_users: [],
+                to_user_id: '', //私聊的用户
+                to_users: [],   //可私聊用户
             }
         },
         created: function () {
@@ -113,6 +113,11 @@
                         this.messages.push(data.data)
                         break;
 
+                    //可私聊用户
+                    case 'sendtousers':
+                        this.to_users = data.data;
+                        break;
+
                     case 'onlineusers':
                         this.users = data.data;
                         break;
@@ -137,10 +142,10 @@
                     alert("请输入聊天内容")
                     return;
                 }
-                axios.post('/sendmessage', {content: this.content, user_id: this.user_id})
+                axios.post('/sendmessage', {content: this.content, to_user_id: this.to_user_id})
                 this.content = ''
             }
-        }
+        },
     }
 </script>
 

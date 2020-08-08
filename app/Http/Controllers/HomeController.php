@@ -48,6 +48,9 @@ class HomeController extends Controller
         //绑定用户
         $this->bindUser($request);
 
+        //当前聊天室可私聊用户
+        $this->getSendToUsers($request->client_id);
+
         //在线用户
         $this->getOnlineUsers();
 
@@ -68,7 +71,7 @@ class HomeController extends Controller
     public function sendMessage(Request $request){
 
         //私聊给的用户的Id
-        $sendToUserId = $request->input('user_id');
+        $sendToUserId = $request->input('to_user_id');
 
         //发送的聊天消息内容
         $content = $request->input('content');
@@ -128,6 +131,29 @@ class HomeController extends Controller
             'avatar' => Auth::user()->avatar(),
             'name' => Auth::user()->name,
         ]);
+    }
+
+    /**
+     * 获取可私聊用户
+     * @author Kalvin
+     * @date   2020-08-06
+     *
+     */
+    private function getSendToUsers($client_id){
+
+        //所有当前房间的用户
+        $sendToUsers = Gateway::getClientSessionsByGroup(session('room_id'));
+        
+        //去掉当前用户
+        unset($sendToUsers[$client_id]);
+
+        $data = [
+            'type' => 'sendtousers',
+            'data' => $sendToUsers,
+        ];
+
+        // Gateway::sendToAll(json_encode($data));
+        Gateway::sendToGroup(session('room_id'),json_encode($data));
     }
 
     /**
