@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+//去掉自带的欢迎界面
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
