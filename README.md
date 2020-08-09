@@ -30,8 +30,7 @@ cd socket/GatewayWorker
 php start.php start
 ```
 
- * 返回项目根目录
- * 项目目录启动
+ * 在项目根目录下启动项目
 ```
 npm run watch-poll
 php artisan serve
