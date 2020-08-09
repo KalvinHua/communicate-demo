@@ -5,7 +5,7 @@ __build with laravel/workerman__
 __use the ' php7.2 + laravel5.8 + mysql5.6 + websocket ' to build a demo which user can chat with orhers.
 使用' php7.2 + laravel5.8 + mysql5.6 + websocket '实现的简单聊天室，支持用户房间聊天以及私聊等操作。__
 
-__运行准备__
+__运行准备：__
 
  * 安装组件
 ```
@@ -30,7 +30,9 @@ cd socket/GatewayWorker
 php start.php start
 ```
 
+ * 返回项目根目录
  * 项目目录启动
 ```
 npm run watch-poll
+php artisan serve
 ```
